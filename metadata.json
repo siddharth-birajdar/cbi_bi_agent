@@ -1,0 +1,88 @@
+{
+  "datasets": [
+    {
+      "table_name": "store",
+      "description": "Store master data",
+      "columns": [
+        { "name": "StoreId", "type": "string", "description": "Unique identifier for the store" },
+        { "name": "StoreName", "type": "string", "description": "Name of the store" },
+        { "name": "StoreState", "type": "string", "description": "State where the store is located" }
+      ],
+      "primary_key": ["StoreId"]
+    },
+    {
+      "table_name": "store_manager",
+      "description": "Store manager assignment history",
+      "columns": [
+        { "name": "StoreId", "type": "string", "description": "Store identifier" },
+        { "name": "EmployeeId", "type": "string", "description": "Manager employee identifier" },
+        { "name": "Name", "type": "string", "description": "Manager name" },
+        { "name": "StartDate", "type": "date", "description": "Manager assignment start date" },
+        { "name": "EndDate", "type": "date", "description": "Manager assignment end date" }
+      ],
+      "primary_key": ["StoreId", "EmployeeId", "StartDate"],
+      "foreign_keys": [
+        { "column": "StoreId", "references": "store.StoreId" }
+      ]
+    },
+    {
+      "table_name": "store_payroll",
+      "description": "Payroll information for store employees",
+      "columns": [
+        { "name": "EmployeeId", "type": "string", "description": "Employee identifier" },
+        { "name": "StartDate", "type": "date", "description": "Salary effective start date" },
+        { "name": "AnnualSalary", "type": "decimal", "description": "Annual salary of the employee" }
+      ],
+      "primary_key": ["EmployeeId", "StartDate"],
+      "foreign_keys": [
+        { "column": "EmployeeId", "references": "store_manager.EmployeeId" }
+      ]
+    },
+    {
+      "table_name": "store_sales",
+      "description": "Daily store-level sales data",
+      "columns": [
+        { "name": "StoreId", "type": "string", "description": "Store identifier" },
+        { "name": "ManagerEmployeeId", "type": "string", "description": "Manager responsible for the store on that date" },
+        { "name": "SalesDate", "type": "date", "description": "Date of sales" },
+        { "name": "DailySales", "type": "decimal", "description": "Total daily sales amount" }
+      ],
+      "primary_key": ["StoreId", "SalesDate"],
+      "foreign_keys": [
+        { "column": "StoreId", "references": "store.StoreId" },
+        { "column": "ManagerEmployeeId", "references": "store_manager.EmployeeId" }
+      ]
+    },
+    {
+      "table_name": "ecomm_sales",
+      "description": "E-commerce transaction line-level sales data",
+      "columns": [
+        { "name": "SalesDate", "type": "date", "description": "Date of the transaction" },
+        { "name": "OrderNumber", "type": "string", "description": "Unique order identifier" },
+        { "name": "LineNumber", "type": "integer", "description": "Line number within the order" },
+        { "name": "Product", "type": "string", "description": "Product name or identifier" },
+        { "name": "Quantity", "type": "integer", "description": "Number of units purchased" },
+        { "name": "RetailPrice", "type": "decimal", "description": "Retail price per unit" },
+        { "name": "DiscountAmount", "type": "decimal", "description": "Discount applied to the line item" },
+        { "name": "PurchasePrice", "type": "decimal", "description": "Final purchase price after discount" }
+      ],
+      "primary_key": ["OrderNumber", "LineNumber"]
+    },
+    {
+      "table_name": "store_manager_profile",
+      "description": "Manager product presentation performance metrics",
+      "columns": [
+        { "name": "EmployeeId", "type": "string", "description": "Manager employee identifier" },
+        { "name": "ProductText", "type": "decimal", "description": "Performance metric for product text content" },
+        { "name": "ProductDemo", "type": "decimal", "description": "Performance metric for product demonstrations" },
+        { "name": "ProductPhoto", "type": "decimal", "description": "Performance metric for product photography" },
+        { "name": "ProductPromo", "type": "decimal", "description": "Performance metric for product promotions" },
+        { "name": "ProductBundle", "type": "decimal", "description": "Performance metric for product bundling" }
+      ],
+      "primary_key": ["EmployeeId"],
+      "foreign_keys": [
+        { "column": "EmployeeId", "references": "store_manager.EmployeeId" }
+      ]
+    }
+  ]
+}
