@@ -1,4 +1,4 @@
-​import streamlit as st
+import steamlit as st
 import streamlit.components.v1 as components
 import json
 import pandas as pd
