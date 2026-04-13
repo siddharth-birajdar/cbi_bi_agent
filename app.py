@@ -179,6 +179,7 @@ div[data-baseweb="input"],div[data-baseweb="base-input"],
 .msg-system { font-family:'Space Mono',monospace; font-size:10px; color:#9ca3af; text-align:center; padding:4px 0; }
 .mid-scroll { max-height:calc(100vh - 104px); overflow-y:auto; padding:16px 16px 48px; background:#f5f7fa; }
 .chat-divider { border:none; border-top:1px solid #dde2ec; margin:12px 0; }
+[data-testid="InputInstructions"] { display:none !important; }
 </style>
 """, unsafe_allow_html=True)
 
